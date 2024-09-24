@@ -1,0 +1,52 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+option go_package = "./booking";
+
+service Booking {
+    rpc Track(Analytics) returns (TrackingResult) {}
+    rpc Reserve(OrderNeeded) returns (OrderCreated) {}
+    rpc Pay(PaymentNeeded) returns (Receipt) {}
+    rpc GetTicket(TicketNeed) returns (Ticket) {}
+}
+
+message Analytics {
+    map<string, string> properties = 1;  // Arbitrary key-value pairs for marketing integrations
+}
+
+message TrackingResult {
+
+}
+
+message OrderNeeded {
+    string session_id = 1;
+    string email_id = 2;
+    string event_id = 3;
+    int32 number_of_tickets = 4;
+}
+
+message OrderCreated {
+    string order_id = 1;
+}
+
+message PaymentNeeded {
+    string order_id = 1;
+    float amount = 2;
+}
+
+message Receipt {
+    string receipt_id = 1;
+    string order_id = 2;
+    google.protobuf.Timestamp payment_time = 3;
+    float total_amount = 4;
+}
+
+message TicketNeed {
+    string order_id = 1;
+}
+
+message Ticket {
+    string order_id = 1;
+    string email_id = 2;
+    string event_id = 3;
+    repeated int32 seat_numbers = 4;
+}

@@ -1,0 +1,5 @@
+nats-0.1.5-linux-amd64/
+nats-server-v2.10.21-RC.2-linux-amd64
+nats/jetstream/
+*.zip
+*.tar.gz
